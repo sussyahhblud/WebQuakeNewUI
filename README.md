@@ -2,7 +2,7 @@
 
 **WebQuake** is an HTML5 WebGL port of the game Quake by id Software.
 
-[Online demo on Render.com](https://web-quake-rcqv.onrender.com).
+[Full Game on Render.com](https://web-quake-rcqv.onrender.com).
 
 # Installing and running
 
@@ -101,4 +101,5 @@ You can delete saved games by pressing Del in the load or save menus. This only 
 # Contributing
 
 If you want to contribute to WebQuake, feel free to fork the project and make a pull request. Pull requests and issues will be reviewed by the developer.
+
 
