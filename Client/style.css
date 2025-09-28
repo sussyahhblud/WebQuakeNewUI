@@ -1,0 +1,22 @@
+body {
+  background-color: #212121;
+
+  background-position: center;
+  background-size: cover;
+  font-family: sans-serif;
+}
+
+h2 {
+  color: #000000;
+}
+
+button {
+  background-color: #3d3d3d;
+  border-radius: 5px;
+  font-family: sans-serif;
+
+  padding-bottom: 20px;
+  padding-left: 30px;
+  padding-right: 30px;
+  padding-top: 20px;
+}
