@@ -4,27 +4,23 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <meta name="viewport" content="user-scalable=no">
 <title>WebQuake Launcher</title>
-<link rel="shortcut icon" href="data:image/gif;base64,
-R0lGODlhMAAwANUAAHNzAFBQAP//1NySALl6AJZiAHNKAFAyAP+qJf+4SP/Ujv/isf/j1FAZAP/Hsf9z
-SP+Pa/+rjv+Ojra2tp6enpKSkoaGhnp6em5ubmJiYlZWVkpKSj4+PjIyMiYmJhoaGg4ODgAAAAAAAAAA
-AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
-AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAACwAAAAAMAAwAAAG/8CQcEgsGo/IJJJDZCqfUCOn4iF6Ks6o
-dkk1XrPbsBCzQW4w4nSmk0Guq+ltuX1sl+PaskZ5P4JAeENlaCEVFhYVYyF9QiAfjxscjx+AcRsdE4tC
-ZRMdfR8eHh0cGxsZGqUcHaEfYmVsF0IXa5ogHqQbqBoZFxYYuqkelXlmIaOlGckZGIeHGMoZqR3DUKFE
-1iEHptEHBxwaGAW+Ghzd2xsHrWEboYzfEOkd3eDPGhrdHR8HEOTq64wfSnlooC+XqV/RUKVr4KGUPzkA
-D3h45AkZuAwFopXKBypdGmxC9E0E1UGeKnuRDpQc6cFjoJASQYEKRbMmq4ktH+IRidNAgf8C4X4C/WkA
-Z86XMDke8PkgwoIIERxEeFDAQLoP8nTG0cex6tICUyFA8OqTosuXM/UV6NaRgNWJ3tamRRpCpD4IVKsS
-gFr15wN4HbWmsWugaQSxEQQ8RTzVQGC6aQ/8VTAWAgMHlSk/SMcKcsyvYw1o+KnBZ2jOZwO1VBWg9M9n
-yIIuZVdOsJiWZ54ZEI1RaAbRBxDesx2GawaxZCEcfmAVI4YIFmpX64DEUSht9i6s3WBB7IXdBDAgjInE
-UwgOEDBQygdiwAACcrtxaIgBfgGxyO9HGyXRg0/3BYACggazbAABARPlc4B7A8i12iMciPfAhBQWOFE5
-ExlAAIBYgXD/HBnQSTRNAQQggIBbRj1ySwYPzMILARlIQhFOJHK4SlMgUqCSMD9t+J5VKqrYgVXyvDXJ
-JB6QaOJ7onigHBkQSNDfByQSsKGVVdV25JZbfuXekgT0Z0EEZPTy2YYIfOkelrvtFlMDS7UJHoNWpunW
-Ixdxh0WGX5roJ4NLNthNXAwWmuYAYDr2AUoaQEABOyDU6CcCCZiYwKWYNribkphWiuikP9piwQW5jAqp
-hlb6OCmlmQpVAKKYgpqqlQbYcgE/4MwyDaprzppqofb5uGavvroFQgcP+CKeeAeAgKqvQlkVF374MdeN
-T1VemWqtEV7gbTIYSIKqXmwC4Ca2chK1kmmP79FaVUAu6hLNB8/O+qmdXg16rapr9rjtohfcE8k3Gvin
-7aw1frrWAQwthWaherXrVgcYkNrQKLsY7C+Wr74HoLRf+SisvT9SHE1DouwypFvZIlwVUxRO+LJPVhJ7
-ogEUa7DKzhnT/J6/uwVwrauuDrrprODh/MzOnmBQVL01A/rjAQFUbbWXhyKsYVGNXhIEADs=">
+<link rel="icon" type="image/png" href="quake-logo.png">
+<link rel="shortcut icon" type="image/png" href="quake-logo.png">
 <style type="text/css">
+@font-face {
+    font-family: 'Quake';
+    src: url('Quake.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'Quake-Title';
+    src: url('Quake-Title.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+}
+
 canvas {
     position: fixed;
     left: 0;
@@ -44,9 +40,10 @@ canvas {
 body {
     background: linear-gradient(145deg, #1a1a1a 0%, #0d1117 50%, #1a1a1a 100%);
     color: #e1e1e1;
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    font-family: 'Trebuchet MS', Verdana, sans-serif;
     height: 100vh;
     overflow: hidden;
+    text-transform: uppercase;
 }
 
 .launcher-container {
@@ -83,6 +80,7 @@ body {
     padding: 12px 16px;
     font-size: 11px;
     font-weight: bold;
+    font-family: 'Trebuchet MS', Verdana, sans-serif;
     letter-spacing: 1px;
     text-transform: uppercase;
     border: none;
@@ -123,6 +121,7 @@ body {
     border-bottom: 1px solid #30363d;
     color: #e1e1e1;
     font-size: 13px;
+    font-family: 'Trebuchet MS', Verdana, sans-serif;
     cursor: pointer;
     transition: background-color 0.2s;
 }
@@ -169,6 +168,7 @@ body {
     padding: 12px 24px;
     font-size: 14px;
     font-weight: bold;
+    font-family: 'Trebuchet MS', Verdana, sans-serif;
     cursor: pointer;
     transition: background-color 0.2s;
     margin: 16px;
@@ -183,6 +183,10 @@ body {
 .start-button:disabled {
     background: #656d76;
     cursor: not-allowed;
+}
+
+.quake-title {
+    font-family: 'Quake-Title', 'Trebuchet MS', Verdana, sans-serif !important;
 }
 
 .logo-container {
@@ -285,7 +289,7 @@ body {
                 <span class="arrow">▼</span>
             </button>
             <div class="section-content" id="games-content">
-                <div class="game-item selected" data-game="quake">Quake</div>
+                <div class="game-item selected quake-title" data-game="quake">Quake</div>
             </div>
         </div>
         
@@ -308,7 +312,7 @@ body {
                 <span class="arrow">▼</span>
             </button>
             <div class="section-content" id="start-content">
-                <button class="start-button" id="startButton" onclick="startGame()">Start</button>
+                <button class="start-button" id="startButton" onclick="startGame()">START</button>
             </div>
         </div>
     </div>
@@ -322,8 +326,7 @@ body {
 
 <div class="footer">
     <a href="#" onclick="showInstructions()">Instructions</a> |
-    <a href="https://github.com/sussyahhblud/WebQuake" target="_blank">GitHub</a> |
-    <a href="#" onclick="showXashXT()">XashXT</a>
+    <a href="https://github.com/sussyahhblud/" target="_blank">GitHub</a>
 </div>
 
 <div id="downloadOverlay" class="download-overlay hidden">
@@ -406,6 +409,9 @@ function startGame() {
 function launchQuake() {
     console.log('Launching Quake with fullscreen:', fullscreenEnabled);
     
+    // Change website title to Quake
+    document.title = 'Quake';
+    
     // Hide the launcher interface
     document.querySelector('.launcher-container').style.display = 'none';
     document.querySelector('.footer').style.display = 'none';
@@ -424,8 +430,22 @@ function launchQuake() {
     
     gameStarted = true;
     
-    // Reload the page to let WebQuake initialize naturally from page load
-    window.location.reload();
+    // Initialize Quake engine directly without page reload
+    if (window.initializeQuake) {
+        window.initializeQuake();
+    } else {
+        // Fallback: call Sys.InitFullGame directly if available
+        if (typeof Sys !== 'undefined' && Sys.InitFullGame) {
+            Sys.InitFullGame();
+        } else {
+            console.log('Quake engine not yet loaded, retrying...');
+            setTimeout(() => {
+                if (typeof Sys !== 'undefined' && Sys.InitFullGame) {
+                    Sys.InitFullGame();
+                }
+            }, 500);
+        }
+    }
 }
 
 function checkGameDataExists() {
@@ -443,12 +463,9 @@ function checkGameDataExists() {
 }
 
 function showInstructions() {
-    alert('WebQuake Instructions:\n\n1. Click "Start" to begin\n2. If game data is missing, it will be downloaded automatically\n3. Use the fullscreen option for better experience\n4. Standard Quake controls apply (WASD, mouse look, etc.)');
+    alert('WebQuake Instructions:\n\n1. Click "Start" to begin\n2. Click "Download Quake Data"\n3. Use the fullscreen option for better experience\n4. Standard Quake controls apply (WASD, mouse look, etc.)');
 }
 
-function showXashXT() {
-    alert('XashXT Engine\n\nExtended version of the Xash3D engine\nFor more information, visit xash.su');
-}
 
 // Check periodically if the game canvas is visible
 function checkGameLoaded() {
