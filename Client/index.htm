@@ -195,16 +195,8 @@ body {
 .logo {
     width: 200px;
     height: 200px;
-    background: radial-gradient(circle, #966f33 0%, #5a3f1a 100%);
-    border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 80px;
-    font-weight: bold;
-    color: #000;
-    text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
-    box-shadow: 0 0 30px rgba(150, 111, 51, 0.3), inset 0 0 30px rgba(0,0,0,0.3);
+    object-fit: contain;
+    filter: drop-shadow(0 0 20px rgba(150, 111, 51, 0.4));
 }
 
 .footer {
@@ -323,7 +315,7 @@ body {
     
     <div class="main-content">
         <div class="logo-container">
-            <div class="logo">Q</div>
+            <img src="quake-logo.png" alt="Quake Logo" class="logo">
         </div>
     </div>
 </div>
@@ -521,7 +513,7 @@ window.onDownloadComplete = function() {
         All rights reserved. NIN logo is a registered trademark licensed        
              to Nothing Interactive, Inc. All rights reserved.</span>                  </span>
 </div>
-<canvas id="mainwindow" width="800" height="600"></canvas>
+<canvas id="mainwindow" width="800" height="600" style="display: none;"></canvas>
 <img id="loading" alt="Loading" style="display: none; position: fixed;">
 <div id="progress" style="display: none; position: fixed;"></div>
 </div>
@@ -870,6 +862,103 @@ void main(void)
 precision mediump float;
 void main(void)
 {
+}
+</script>
+<script type="x-shader/x-vertex" id="vshSprite">
+uniform vec3 uViewOrigin;
+uniform mat3 uViewAngles;
+uniform mat4 uPerspective;
+attribute vec3 aPosition;
+attribute vec2 aTexCoord;
+varying vec2 vTexCoord;
+void main(void)
+{
+        vec3 position = uViewAngles * (aPosition - uViewOrigin);
+        gl_Position = uPerspective * vec4(position.xz, -position.y, 1.0);
+        vTexCoord = aTexCoord;
+}
+</script>
+<script type="x-shader/x-fragment" id="fshSprite">
+precision mediump float;
+uniform float uGamma;
+uniform sampler2D tTexture;
+varying vec2 vTexCoord;
+void main(void)
+{
+        vec4 texture = texture2D(tTexture, vTexCoord);
+        gl_FragColor = texture;
+        gl_FragColor.r = pow(gl_FragColor.r, uGamma);
+        gl_FragColor.g = pow(gl_FragColor.g, uGamma);
+        gl_FragColor.b = pow(gl_FragColor.b, uGamma);
+}
+</script>
+<script type="x-shader/x-vertex" id="vshTurbulent">
+uniform vec3 uOrigin;
+uniform mat3 uAngles;
+uniform vec3 uViewOrigin;
+uniform mat3 uViewAngles;
+uniform mat4 uPerspective;
+uniform mediump float uTime;
+attribute vec3 aPosition;
+attribute vec2 aTexCoord;
+varying vec2 vTexCoord;
+void main(void)
+{
+        vec3 position = uViewAngles * (uAngles * aPosition + uOrigin - uViewOrigin);
+        gl_Position = uPerspective * vec4(position.xz, -position.y, 1.0);
+        vTexCoord = aTexCoord + vec2(sin(uTime * 0.1), cos(uTime * 0.1)) * 0.01;
+}
+</script>
+<script type="x-shader/x-fragment" id="fshTurbulent">
+precision mediump float;
+uniform mediump float uGamma;
+uniform mediump float uTime;
+uniform sampler2D tTexture;
+varying vec2 vTexCoord;
+void main(void)
+{
+        vec2 coord = vTexCoord;
+        coord.x += sin(coord.y * 10.0 + uTime) * 0.005;
+        coord.y += cos(coord.x * 10.0 + uTime) * 0.005;
+        vec4 texture = texture2D(tTexture, coord);
+        gl_FragColor = texture;
+        gl_FragColor.r = pow(gl_FragColor.r, uGamma);
+        gl_FragColor.g = pow(gl_FragColor.g, uGamma);
+        gl_FragColor.b = pow(gl_FragColor.b, uGamma);
+}
+</script>
+<script type="x-shader/x-vertex" id="vshWarp">
+uniform vec3 uOrigin;
+uniform mat3 uAngles;
+uniform vec3 uViewOrigin;
+uniform mat3 uViewAngles;
+uniform mat4 uPerspective;
+attribute vec3 aPosition;
+attribute vec2 aTexCoord;
+varying vec2 vTexCoord;
+void main(void)
+{
+        vec3 position = uViewAngles * (uAngles * aPosition + uOrigin - uViewOrigin);
+        gl_Position = uPerspective * vec4(position.xz, -position.y, 1.0);
+        vTexCoord = aTexCoord;
+}
+</script>
+<script type="x-shader/x-fragment" id="fshWarp">
+precision mediump float;
+uniform mediump float uGamma;
+uniform mediump float uTime;
+uniform sampler2D tTexture;
+varying vec2 vTexCoord;
+void main(void)
+{
+        vec2 coord = vTexCoord;
+        coord.x += sin(coord.y * 20.0 + uTime * 2.0) * 0.01;
+        coord.y += cos(coord.x * 20.0 + uTime * 2.0) * 0.01;
+        vec4 texture = texture2D(tTexture, coord);
+        gl_FragColor = texture;
+        gl_FragColor.r = pow(gl_FragColor.r, uGamma);
+        gl_FragColor.g = pow(gl_FragColor.g, uGamma);
+        gl_FragColor.b = pow(gl_FragColor.b, uGamma);
 }
 </script>
 </body>
