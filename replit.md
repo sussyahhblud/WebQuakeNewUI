@@ -36,6 +36,14 @@ WebQuake is an HTML5 WebGL port of the classic Quake game by id Software. This p
 - Integrated download overlay for missing game data
 - Fullscreen functionality for enhanced gaming experience
 
+✅ **Multi-Game Support Added**
+- **Dual game launcher** - Added Half-Life alongside Quake in games dropdown
+- **Dynamic UI switching** - Text changes from "Download Quake Data" to "Download Half-Life Data" when Half-Life is selected
+- **Game data files** messaging updates from "required to play Quake" to "required to play Half-Life"
+- **Backend Half-Life support** - Server handles Half-Life downloads from webXash GitHub URL
+- **Separate data directories** - Quake uses /id1/, Half-Life uses /valve/
+- **Dynamic endpoint routing** - Frontend calls /api/download-quake or /api/download-halflife based on selection
+
 ## Setup Details
 - Frontend accessible at: `http://localhost:5000`
 - Game server (multiplayer): port 26000

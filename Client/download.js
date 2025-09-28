@@ -21,15 +21,19 @@ window.downloadQuakeData = async function() {
             }, 1000);
             
         } else if (response.status === 409) {
-            status.innerHTML = "Quake data already exists! Starting game...";
+            status.innerHTML = "Quake data already exists! Click to start game...";
             status.style.color = "#FFD700";
             
-            // Notify the launcher that data exists and is ready
-            setTimeout(() => {
+            // Re-enable the button so user can click to start
+            button.disabled = false;
+            button.innerHTML = "Start Game";
+            
+            // Only start game when user clicks the button again
+            button.onclick = () => {
                 if (window.onDownloadComplete) {
                     window.onDownloadComplete();
                 }
-            }, 1000);
+            };
         } else {
             const errorText = await response.text();
             status.innerHTML = "Download failed: " + errorText;
@@ -43,11 +47,46 @@ window.downloadQuakeData = async function() {
     }
 };
 
+// Function to load WebQuake engine scripts dynamically
+function loadQuakeEngine() {
+    return new Promise((resolve) => {
+        const scripts = [
+            'WebQuake/CDAudio.js', 'WebQuake/Chase.js', 'WebQuake/CL.js', 'WebQuake/Cmd.js',
+            'WebQuake/COM.js', 'WebQuake/Console.js', 'WebQuake/CRC.js', 'WebQuake/Cvar.js',
+            'WebQuake/Def.js', 'WebQuake/Draw.js', 'WebQuake/ED.js', 'WebQuake/GL.js',
+            'WebQuake/Host.js', 'WebQuake/IN.js', 'WebQuake/Key.js', 'WebQuake/M.js',
+            'WebQuake/Mod.js', 'WebQuake/MSG.js', 'WebQuake/NET.js', 'WebQuake/NET_Loop.js',
+            'WebQuake/NET_WEBS.js', 'WebQuake/PF.js', 'WebQuake/PR.js', 'WebQuake/Protocol.js',
+            'WebQuake/Q.js', 'WebQuake/R.js', 'WebQuake/S.js', 'WebQuake/Sbar.js',
+            'WebQuake/SCR.js', 'WebQuake/SV.js', 'WebQuake/Sys.js', 'WebQuake/SZ.js',
+            'WebQuake/V.js', 'WebQuake/Vec.js', 'WebQuake/VID.js', 'WebQuake/W.js'
+        ];
+        
+        let loadedCount = 0;
+        scripts.forEach(src => {
+            const script = document.createElement('script');
+            script.src = src;
+            script.onload = () => {
+                loadedCount++;
+                if (loadedCount === scripts.length) {
+                    resolve();
+                }
+            };
+            document.head.appendChild(script);
+        });
+    });
+}
+
 // Function to initialize Quake after successful download or when data exists
-window.initializeQuake = function() {
+window.initializeQuake = async function() {
+    console.log('Loading Quake engine...');
+    
+    // Load engine scripts dynamically
+    await loadQuakeEngine();
+    
     console.log('Initializing Quake engine...');
     
-    // Initialize the full game now that data is available
+    // Initialize the full game now that scripts are loaded
     if (typeof Sys !== 'undefined' && Sys.InitFullGame) {
         Sys.InitFullGame();
     } else {

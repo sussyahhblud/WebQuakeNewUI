@@ -326,7 +326,8 @@ body {
 
 <div class="footer">
     <a href="#" onclick="showInstructions()">Instructions</a> |
-    <a href="https://github.com/sussyahhblud/" target="_blank">GitHub</a>
+    <a href="https://github.com/sussyahhblud/" target="_blank">GitHub</a> |
+    <a href="https://webxash3d.onrender.com/" target="_blank">Half-Life</a>
 </div>
 
 <div id="downloadOverlay" class="download-overlay hidden">
@@ -358,8 +359,7 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     });
     
-    // Check if game data exists
-    checkGameDataExists();
+    // Always start fresh - user must click download/start each time
 });
 
 function toggleSection(event, sectionName) {
@@ -389,21 +389,8 @@ function toggleFullscreen() {
 }
 
 function startGame() {
-    // Check if game data exists first
-    fetch('/id1/pak0.pak', { method: 'HEAD' })
-        .then(function(response) {
-            if (response.ok) {
-                // Game data exists, start the game
-                launchQuake();
-            } else {
-                // Game data doesn't exist, show download overlay
-                document.getElementById('downloadOverlay').classList.remove('hidden');
-            }
-        })
-        .catch(function() {
-            // Game data doesn't exist, show download overlay
-            document.getElementById('downloadOverlay').classList.remove('hidden');
-        });
+    // Always show download overlay, regardless of whether data exists
+    document.getElementById('downloadOverlay').classList.remove('hidden');
 }
 
 function launchQuake() {
@@ -449,7 +436,8 @@ function launchQuake() {
 }
 
 function checkGameDataExists() {
-    fetch('/id1/pak0.pak', { method: 'HEAD' })
+    const dataPath = '/id1/pak0.pak';
+    fetch(dataPath, { method: 'HEAD' })
         .then(function(response) {
             if (!response.ok) {
                 console.log('Game data not found, ready to download');
@@ -534,42 +522,7 @@ window.onDownloadComplete = function() {
 <img id="loading" alt="Loading" style="display: none; position: fixed;">
 <div id="progress" style="display: none; position: fixed;"></div>
 </div>
-<script type="text/javascript" src="WebQuake/CDAudio.js"></script>
-<script type="text/javascript" src="WebQuake/Chase.js"></script>
-<script type="text/javascript" src="WebQuake/CL.js"></script>
-<script type="text/javascript" src="WebQuake/Cmd.js"></script>
-<script type="text/javascript" src="WebQuake/COM.js"></script>
-<script type="text/javascript" src="WebQuake/Console.js"></script>
-<script type="text/javascript" src="WebQuake/CRC.js"></script>
-<script type="text/javascript" src="WebQuake/Cvar.js"></script>
-<script type="text/javascript" src="WebQuake/Def.js"></script>
-<script type="text/javascript" src="WebQuake/Draw.js"></script>
-<script type="text/javascript" src="WebQuake/ED.js"></script>
-<script type="text/javascript" src="WebQuake/GL.js"></script>
-<script type="text/javascript" src="WebQuake/Host.js"></script>
-<script type="text/javascript" src="WebQuake/IN.js"></script>
-<script type="text/javascript" src="WebQuake/Key.js"></script>
-<script type="text/javascript" src="WebQuake/M.js"></script>
-<script type="text/javascript" src="WebQuake/Mod.js"></script>
-<script type="text/javascript" src="WebQuake/MSG.js"></script>
-<script type="text/javascript" src="WebQuake/NET.js"></script>
-<script type="text/javascript" src="WebQuake/NET_Loop.js"></script>
-<script type="text/javascript" src="WebQuake/NET_WEBS.js"></script>
-<script type="text/javascript" src="WebQuake/PF.js"></script>
-<script type="text/javascript" src="WebQuake/PR.js"></script>
-<script type="text/javascript" src="WebQuake/Protocol.js"></script>
-<script type="text/javascript" src="WebQuake/Q.js"></script>
-<script type="text/javascript" src="WebQuake/R.js"></script>
-<script type="text/javascript" src="WebQuake/S.js"></script>
-<script type="text/javascript" src="WebQuake/Sbar.js"></script>
-<script type="text/javascript" src="WebQuake/SCR.js"></script>
-<script type="text/javascript" src="WebQuake/SV.js"></script>
-<script type="text/javascript" src="WebQuake/Sys.js"></script>
-<script type="text/javascript" src="WebQuake/SZ.js"></script>
-<script type="text/javascript" src="WebQuake/V.js"></script>
-<script type="text/javascript" src="WebQuake/Vec.js"></script>
-<script type="text/javascript" src="WebQuake/VID.js"></script>
-<script type="text/javascript" src="WebQuake/W.js"></script>
+<!-- WebQuake engine scripts will be loaded dynamically when needed -->
 <script type="x-shader/x-vertex" id="vshAlias">
 uniform vec3 uOrigin;
 uniform mat3 uAngles;

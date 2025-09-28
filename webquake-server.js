@@ -176,6 +176,7 @@ const server = http.createServer((req, res) => {
         });
         return;
     }
+
     
     // Default to index.htm if accessing root
     if (pathname === '/') {
